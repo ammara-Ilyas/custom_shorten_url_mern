@@ -9,16 +9,22 @@ export const handleUrl = async (req, res) => {
     return res.status(400).json({ msg: "URL is required" });
   } else {
     try {
-      const shortid = nanoid(8);
-      const newUrl = await URL.create({
-        shortId: shortid,
-        redirectURL: body.url,
-        visitHistory: [],
-      });
-      console.log("url in controller");
-      const allUrls = await URL.find();
+      const urlExist = await URL.findOne({ redirectURL: body.url });
+      console.log("url", urlExist);
 
-      res.json(newUrl);
+      if (urlExist) {
+        return res.json(urlExist);
+      } else {
+        const shortid = nanoid(8);
+        const newUrl = await URL.create({
+          shortId: shortid,
+          redirectURL: body.url,
+          visitHistory: [],
+        });
+        console.log("url in controller");
+
+        res.json(newUrl);
+      }
     } catch (error) {
       console.error("Error creating URL:", error.message);
       console.error("Stack Trace:", error.stack);

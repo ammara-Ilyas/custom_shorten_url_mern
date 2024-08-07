@@ -1,11 +1,29 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Tabel from "./components/Tabel";
 import ShortId from "./components/ShortId";
 import Form from "./components/Form";
 
 const URLShortener = () => {
   const [url, setUrl] = useState("");
-  const [shortId, setshortId] = useState("");
+  const [shortId, setShortId] = useState("");
+  const [urls, setUrls] = useState([]);
+  const [newUrlAdded, setNewUrlAdded] = useState(false);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch("/api/");
+        const data = await response.json();
+        console.log(data);
+
+        setUrls(data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchData();
+  }, [newUrlAdded]); // Use new state variable as a dependency
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -19,21 +37,21 @@ const URLShortener = () => {
         body: JSON.stringify({ url }),
       });
       const data = await response.json();
-      console.log(data);
+      console.log("data", data);
 
-      setshortId(data.shortId);
-      // setUrls(data.urls);
+      setShortId(data.shortId);
+      setNewUrlAdded((prev) => !prev);
     } catch (error) {
       console.error(error);
     }
   };
 
   return (
-    <div className="flex  w-full flex-col items-center min-h-screen bg-gray-100 py-6">
+    <div className="flex w-full flex-col items-center min-h-screen bg-gray-100 py-6">
       <h1 className="text-2xl font-bold text-gray-800 mb-6">URL Shortener</h1>
       <Form url={url} setUrl={setUrl} handleSubmit={handleSubmit} />
       <ShortId shortId={shortId} />
-      <Tabel url={url} />
+      <Tabel urls={urls} />
     </div>
   );
 };

@@ -9,12 +9,13 @@ const ShortId = ({ shortId }) => {
           <a
             href={`http://localhost:5000/api/${shortId}`}
             className="text-blue-600 hover:underline"
+            target="_blank"
           >
             http://localhost:5000/api/url/{shortId}
           </a>
         </p>
       ) : (
-        <p>There is no id</p>
+        <p>There is no id.</p>
       )}
     </div>
   );
