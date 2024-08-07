@@ -6,11 +6,10 @@ const Tabel = ({ url }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("http://localhost:5000/");
+        const response = await fetch("/api/");
         const data = await response.json();
         console.log(data);
 
-        // Assuming your data is an array of URLs
         setUrls(data);
       } catch (error) {
         console.error(error);

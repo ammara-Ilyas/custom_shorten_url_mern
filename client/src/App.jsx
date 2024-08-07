@@ -11,7 +11,7 @@ const URLShortener = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:5000/api/url", {
+      const response = await fetch("/api/url", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
