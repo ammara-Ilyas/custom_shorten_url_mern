@@ -41,10 +41,15 @@ const Tabel = ({ url }) => {
                 className={index % 2 === 0 ? "bg-gray-100" : ""}
               >
                 <td className="border border-gray-300 p-2">{index + 1}</td>
-                <td className="border border-gray-300 p-2">{url.shortId}</td>
+                <td className="border border-gray-300 p-2 text-blue-400">
+                  <a href={`http://localhost:5000/api/${url.shortId}`}>
+                    {url.shortId}
+                  </a>
+                </td>
                 <td className="border border-gray-300 p-2">
-                  <a href={`http://localhost:5000/api/${url.shortId}`}></a>
-                  {url.redirectURL}
+                  <a href={`http://localhost:5000/api/${url.shortId}`}>
+                    {url.redirectURL}
+                  </a>
                 </td>
                 <td className="border border-gray-300 p-2">
                   {url.visitHistory.length}
