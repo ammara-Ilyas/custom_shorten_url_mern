@@ -7,10 +7,10 @@ const ShortId = ({ shortId }) => {
         <p>
           URL Generated:{" "}
           <a
-            href={`http://localhost:5000/api/${id}`}
+            href={`http://localhost:5000/api/${shortId}`}
             className="text-blue-600 hover:underline"
           >
-            http://localhost:5000/api/url/{id}
+            http://localhost:5000/api/url/{shortId}
           </a>
         </p>
       ) : (

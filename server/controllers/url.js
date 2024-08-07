@@ -17,10 +17,7 @@ export const handleUrl = async (req, res) => {
       });
       console.log("url in controller");
       const allUrls = await URL.find();
-      // res.render("home", {
-      //   id: newUrl.shortId,
-      //   urls: allUrls,
-      // });
+
       res.json(newUrl);
     } catch (error) {
       console.error("Error creating URL:", error.message);

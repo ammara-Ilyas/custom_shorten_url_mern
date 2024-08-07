@@ -1,11 +1,8 @@
 import express from "express";
-import { nanoid } from "nanoid";
-import path from "path";
 import cors from "cors";
 import dotenv from "dotenv";
 import { connectToMongoDB } from "./db.js";
 
-import staticRouter from "../route/staticRouter.js";
 import router from "../route/url.js";
 
 const app = express();
@@ -13,9 +10,6 @@ const app = express();
 dotenv.config();
 const url = process.env.MONGODB_URI;
 const PORT = process.env.PORT || 8000;
-
-app.set("view engine", "ejs");
-app.set("views", path.resolve("./views"));
 
 app.use(
   cors({
@@ -26,7 +20,6 @@ app.use(
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.get("/", staticRouter);
 app.use("/api", router);
 
 const startServer = async () => {

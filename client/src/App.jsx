@@ -6,14 +6,12 @@ import Form from "./components/Form";
 const URLShortener = () => {
   const [url, setUrl] = useState("");
   const [shortId, setshortId] = useState("");
-  const [urls, setUrls] = useState([]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle URL submission logic here, e.g., make an API call to shorten the URL
-    // Assume we get back a response with a new ID and an updated list of URLs
+
     try {
-      const response = await fetch("/api/url", {
+      const response = await fetch("http://localhost:5000/api/url", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -23,7 +21,7 @@ const URLShortener = () => {
       const data = await response.json();
       console.log(data);
 
-      // setId(data.id);
+      setshortId(data.shortId);
       // setUrls(data.urls);
     } catch (error) {
       console.error(error);
@@ -35,7 +33,7 @@ const URLShortener = () => {
       <h1 className="text-2xl font-bold text-gray-800 mb-6">URL Shortener</h1>
       <Form url={url} setUrl={setUrl} handleSubmit={handleSubmit} />
       <ShortId shortId={shortId} />
-      <Tabel urls={urls} />
+      <Tabel url={url} />
     </div>
   );
 };

@@ -1,6 +1,24 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
-const Tabel = ({ urls }) => {
+const Tabel = ({ url }) => {
+  const [urls, setUrls] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch("http://localhost:5000/");
+        const data = await response.json();
+        console.log(data);
+
+        // Assuming your data is an array of URLs
+        setUrls(data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchData();
+  }, [url]);
   return (
     <div className="bg-white p-6 rounded-lg shadow-md w-full max-w-3xl text-center">
       {urls.length > 0 && (
@@ -26,6 +44,7 @@ const Tabel = ({ urls }) => {
                 <td className="border border-gray-300 p-2">{index + 1}</td>
                 <td className="border border-gray-300 p-2">{url.shortId}</td>
                 <td className="border border-gray-300 p-2">
+                  <a href={`http://localhost:5000/api/${url.shortId}`}></a>
                   {url.redirectURL}
                 </td>
                 <td className="border border-gray-300 p-2">
